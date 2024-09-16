@@ -15,9 +15,10 @@ jobs:
         with:
           node-version: 'lts/*'
       - name: set variables
+        id: set_short_sha
         shell: bash
         run: |
-              echo ${{GITHUB_SHA::7}} >> $GITHUB_SHA
+              echo $echo {short_sha=GITHUB_SHA::7} >> $GITHUB_OUTPUT
       - name: run test
         shell: bash
         run: |
@@ -26,7 +27,7 @@ jobs:
                 --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
                 --header 'content-type: application/json' \
                 --data '{
-                "title": "Automated issue for commit: ${GITHUB_SHA}",
+                "title": "Automated issue for commit: ${{ steps.set_short_sha.outputs.short_sha }}",
                 "body": "This issue was automatically created by the GitHub Action workflow ${{ github.workflow }} . \n\n The commit hash was: _${{ github.run_number }}_."
                   }' \
                 --fail  
