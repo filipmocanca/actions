@@ -4,4 +4,4 @@ on:
 
 jobs:
   call-ex4:
-    uses: ./.github/workflows/ex4.yaml@feat/myfeature
+    uses: ./.github/workflows/ex4.yaml
