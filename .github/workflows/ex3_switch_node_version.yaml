@@ -20,4 +20,6 @@ jobs:
             npm install
             npm test
             echo ${{env.NODE_VERSION}}
-            npm -v
+            node -v
+            echo "action_state=yellow"
+        
