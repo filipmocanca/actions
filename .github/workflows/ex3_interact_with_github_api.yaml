@@ -8,25 +8,25 @@ jobs:
       issues: write
     runs-on: ubuntu-latest
     steps:
-        - name: checkout
-          uses: actions/checkout@v3
-        - name : setup node
-          uses: actions/setup-node@v3
-          with:
-            node-version: 'lts/*'
-       - name: set variables
-          shell: bash
-          run: |
-                echo ${{GITHUB_SHA::7}} >> $GITHUB_SHA
-        - name: run test
-          shell: bash
-          run: |
-                 curl --request POST \
-                 --url https://api.github.com/repos/actions/issues \
-                 --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-                 --header 'content-type: application/json' \
-                  --data '{
-                  "title": "Automated issue for commit: ${GITHUB_SHA}",
-                  "body": "This issue was automatically created by the GitHub Action workflow ${{ github.workflow }} . \n\n The commit hash was: _${{ github.run_number }}_."
-                    }' \
-                  --fail  
+      - name: checkout
+        uses: actions/checkout@v3
+      - name : setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+      - name: set variables
+        shell: bash
+        run: |
+              echo ${{GITHUB_SHA::7}} >> $GITHUB_SHA
+      - name: run test
+        shell: bash
+        run: |
+                curl --request POST \
+                --url https://api.github.com/repos/actions/issues \
+                --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+                --header 'content-type: application/json' \
+                --data '{
+                "title": "Automated issue for commit: ${GITHUB_SHA}",
+                "body": "This issue was automatically created by the GitHub Action workflow ${{ github.workflow }} . \n\n The commit hash was: _${{ github.run_number }}_."
+                  }' \
+                --fail  
