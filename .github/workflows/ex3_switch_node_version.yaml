@@ -20,3 +20,4 @@ jobs:
             npm install
             npm test
             echo ${{env.NODE_VERSION}}
+            npm -v
