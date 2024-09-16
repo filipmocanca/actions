@@ -18,7 +18,7 @@ jobs:
         id: set_short_sha
         shell: bash
         run: |
-              echo 'short_sha=${GITHUB_SHA::7}' >> $GITHUB_OUTPUT
+              echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
       - name: run test
         shell: bash
         run: |
