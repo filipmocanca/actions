@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: 14
-      GITHUB_TOKEN: ${{github.token}}
     steps:
         - name: checkout
           uses: actions/checkout@v3
