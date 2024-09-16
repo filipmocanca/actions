@@ -28,6 +28,6 @@ jobs:
                 --header 'content-type: application/json' \
                 --data '{
                 "title": "Automated issue for commit: ${{ steps.set_short_sha.outputs.short_sha }}",
-                "body": "This issue was automatically created by the GitHub Action workflow ${{ github.workflow }} . \n\n The commit hash was: _${{ github.run_number }}_."
+                "body": "This issue was automatically created by the GitHub Action workflow ${{ github.workflow }} . \n\n The commit hash was: _${{ steps.set_short_sha.outputs.short_sha }}_."
                   }' \
                 --fail  
