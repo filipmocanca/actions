@@ -15,7 +15,7 @@ jobs:
         run: |
           npm install   
           npm test
-#  job2:
+#  testing:
 #    needs: job1
 #    runs-on: ubuntu-latest
 #    steps: 
