@@ -8,7 +8,6 @@ jobs:
     env:
       NODE_VERSION: 14
       GITHUB_TOKEN: ${{github.token}}
-      GITHUB_SHA: ${{GITHUB_SHA::7}}
     steps:
         - name: checkout
           uses: actions/checkout@v3
@@ -16,15 +15,19 @@ jobs:
           uses: actions/setup-node@v3
           with:
             node-version: '${{env.NODE_VERSION}}'
+       - name: set variables
+          shell: bash
+          run: |
+                echo ${{GITHUB_SHA::7}} >> $GITHUB_SHA
         - name: run test
           shell: bash
           run: |
                  curl --request POST \
-                 --url https://api.github.com/repos/${{ env.GITHUB_TOKEN }}/issues \
-                 --header 'authorization: Bearer <specify github token>' \
+                 --url https://api.github.com/repos/actions/issues \
+                 --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
                  --header 'content-type: application/json' \
                   --data '{
-                  "title": "Automated issue for commit: ${{ env.sha_GITHUB_SHA }}",
-                  "body": "This issue was automatically created by the GitHub Action workflow . \n\n The commit hash was: _${{ env.sha_GITHUB_SHA }}_."
+                  "title": "Automated issue for commit: ${GITHUB_SHA}",
+                  "body": "This issue was automatically created by the GitHub Action workflow $ {{ github.workflow }} . \n\n The commit hash was: _${{ github.run_number }}_."
                     }' \
                   --fail  
