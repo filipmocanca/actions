@@ -12,10 +12,8 @@ jobs:
         with:
           node-version: lts/*
       - name: run Install    
-        run:  
-          npm install 
-      - name: run Test    
-        run:  
+        run: |
+          npm install   
           npm test
 #  job2:
 #    needs: job1
