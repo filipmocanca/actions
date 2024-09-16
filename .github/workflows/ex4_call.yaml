@@ -3,5 +3,5 @@ on:
   workflow_dispatch:
 
 jobs:
-  call-ex4
+  call-ex4:
     uses: ./.github/workflows/ex4.yaml@feat/myfeature
