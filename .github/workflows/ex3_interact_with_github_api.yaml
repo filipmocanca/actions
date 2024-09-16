@@ -1,0 +1,30 @@
+name: interact with Github API
+on: 
+  pull_request:
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: 14
+      GITHUB_TOKEN: ${{github.token}}
+      GITHUB_SHA: ${{GITHUB_SHA::7}}
+    steps:
+        - name: checkout
+          uses: actions/checkout@v3
+        - name : setup node
+          uses: actions/setup-node@v3
+          with:
+            node-version: '${{env.NODE_VERSION}}'
+        - name: run test
+          shell: bash
+          run: |
+                 curl --request POST \
+                 --url https://api.github.com/repos/${{ env.GITHUB_TOKEN }}/issues \
+                 --header 'authorization: Bearer <specify github token>' \
+                 --header 'content-type: application/json' \
+                  --data '{
+                  "title": "Automated issue for commit: ${{ env.sha_GITHUB_SHA }}",
+                  "body": "This issue was automatically created by the GitHub Action workflow . \n\n The commit hash was: _${{ env.sha_GITHUB_SHA }}_."
+                    }' \
+                  --fail  
